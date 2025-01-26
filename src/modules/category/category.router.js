@@ -1,14 +1,16 @@
 import { Router } from "express";
-const router = Router()
+import { fileUpload, fileValidation } from "../../utils/multer.js";
+import * as categoryController from "./controller/category.js";
+const router = Router();
 
+router.get("/", (req, res) => {
+  res.status(200).json({ message: "Category Module" });
+});
 
+router.post(
+  "/",
+  fileUpload(fileValidation.image).single("image"),
+  categoryController.createCategory
+);
 
-
-router.get('/', (req ,res)=>{
-    res.status(200).json({message:"Category Module"})
-})
-
-
-
-
-export default router
+export default router;
